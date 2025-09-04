@@ -4,7 +4,8 @@ plugins {
 
 android {
     namespace 'com.example.myapplication'
-    compileSdk 33
+    compileSdkVersion 33  // 推荐使用最新稳定版
+    buildToolsVersion "33.0.0"
 
     defaultConfig {
         applicationId "com.example.myapplication"

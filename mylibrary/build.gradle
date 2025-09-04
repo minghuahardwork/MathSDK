@@ -2,14 +2,14 @@ plugins {
     id 'com.android.library'
     id 'maven-publish'  // 新增插件
 }
-task generateSourcesJar(type: Jar){
+task generateSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
-    classifier  'sources'
+    archiveClassifier.set("sources")  // 修正后的语法
 }
 android {
     namespace 'com.example.mylibrary'
-    compileSdk 33
-
+    compileSdkVersion 33  // 推荐使用最新稳定版
+    buildToolsVersion "33.0.0"
     defaultConfig {
         minSdk 30
         targetSdk 33
@@ -38,7 +38,8 @@ afterEvaluate {
                 from components.release // 表示发布 release（jitpack 都不会使用到）
                 groupId = 'com.github.minghuahardwork' //groupId 随便取 , 这个是依赖库的组 id
                 artifactId = 'mylibrary' //artifactId 随便取 , 依赖库的名称（jitpack 都不会使用到）
-                version = '1.1.7' // 当前版本依赖库版本号，这个jitpack不会使用到，只是我们开发者自己查看
+                version = '1.1.8' // 当前版本依赖库版本号，这个jitpack不会使用到，只是我们开发者自己查看
+                artifact generateSourcesJar  // 显式声明生成的Sources JAR
             }
         }
     }
